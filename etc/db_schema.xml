@@ -1,0 +1,62 @@
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="bluethink_question">
+        <column xsi:type="int" name="question_id" padding="10" unsigned="true" identity="true" nullable="false" comment="Entity Id"/>
+        <column xsi:type="varchar" name="question" nullable="false" length="255" comment="Question"/>
+        <column xsi:type="tinyint" name="status" nullable="true" comment="Status"/>
+        <column xsi:type="tinyint" name="type" nullable="true" comment="Type"/>
+        <column xsi:type="varchar" name="sku" nullable="false" length="255" comment="Sku"/>
+        <column xsi:type="varchar" name="name" nullable="true" length="255" comment="Nick Name"/>
+        <column xsi:type="varchar" name="email" nullable="false" comment="Email"/>
+        <column xsi:type="varchar" name="storeview" nullable="true" comment="Store View"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="false" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" nullable="true" default="CURRENT_TIMESTAMP" on_update="true" comment="Updated At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="question_id"/>
+        </constraint>
+        <index referenceId="BLUETHINK_QUESTIONANSWER_ADD_NEW_QUESTION_ID" indexType="btree">
+            <column name="question_id"/>
+        </index>
+    </table>
+    <table name="bluethink_answer">
+        <column xsi:type="int" name="answer_id" padding="10" unsigned="true" identity="true" nullable="false" comment="Entity Id"/>
+        <column xsi:type="int" name="question_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Question Id"/>
+        <column xsi:type="tinyint" name="status" nullable="true" comment="Status"/>
+        <column xsi:type="tinyint" name="type" nullable="true" comment="Type"/>
+        <column xsi:type="varchar" name="name" nullable="true" length="255" comment="Nick Name"/>
+        <column xsi:type="varchar" name="email" nullable="false" comment="Email"/>
+        <column xsi:type="tinyint" name="anonymous" nullable="true" comment="Is Anonymous"/>
+        <column xsi:type="varchar" name="answer" nullable="false" length="255" comment="Answer"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="false" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" nullable="true" default="CURRENT_TIMESTAMP" on_update="true" comment="Updated At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="answer_id"/>
+        </constraint>
+            <constraint xsi:type="foreign" referenceId="PROVINCE_PROVINCE_ID_CITY_PROVINCE_ID" table="bluethink_answer" column="question_id" referenceTable="bluethink_question" referenceColumn="question_id"/>
+    </table>
+
+
+<table name="bluethink_reportabuse">
+	<column xsi:type="int" name="reportabuse_id" padding="10" unsigned="true" identity="true" nullable="false" comment="Entity Id"/>
+
+	<column xsi:type="int" name="answer_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Answer Id"/>
+
+	<column xsi:type="int" name="question_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Question Id"/>
+
+	<column xsi:type="int" name="abuse" nullable="true" comment="Abuse"/>
+	<column xsi:type="int" name="like" nullable="true" comment="Likes"/>
+	<column xsi:type="int" name="dislike" nullable="true" comment="Dislikes"/>
+
+	<column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="false" comment="Created At"/>
+
+	<column xsi:type="timestamp" name="updated_at" nullable="true" default="CURRENT_TIMESTAMP" on_update="true" comment="Updated At"/>
+
+	<constraint xsi:type="primary" referenceId="PRIMARY">
+		<column name="reportabuse_id"/>
+	</constraint>
+	
+  	<constraint xsi:type="foreign" referenceId="BLUETHINK_QUESTIONANSWER_ADD_REPORT_ABUSE_QUESTION" table="bluethink_reportabuse" column="question_id" referenceTable="bluethink_question" referenceColumn="question_id"/>
+
+	<constraint xsi:type="foreign" referenceId="BLUETHINK_QUESTIONANSWER_ADD_REPORT_ABUSE_ANSWER" table="bluethink_reportabuse" column="answer_id" referenceTable="bluethink_answer" referenceColumn="answer_id"/>
+	
+</table>
+</schema>

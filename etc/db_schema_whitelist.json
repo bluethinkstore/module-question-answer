@@ -1,0 +1,57 @@
+{
+    "bluethink_question": {
+        "column": {
+            "question_id": true,
+            "question": true,
+            "status": true,
+            "type": true,
+            "sku": true,
+            "name": true,
+            "email": true,
+            "storeview": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "BLUETHINK_QUESTION_QUESTION_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "bluethink_answer": {
+        "column": {
+            "answer_id": true,
+            "question_id": true,
+            "status": true,
+            "type": true,
+            "name": true,
+            "email": true,
+            "anonymous": true,
+            "answer": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "BLUETHINK_ANSWER_QUESTION_ID_BLUETHINK_QUESTION_QUESTION_ID": true
+        }
+    },
+    "bluethink_reportabuse": {
+        "column": {
+            "reportabuse_id": true,
+            "answer_id": true,
+            "question_id": true,
+            "abuse": true,
+            "like": true,
+            "dislike": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "BLUETHINK_REPORTABUSE_QUESTION_ID_BLUETHINK_QUESTION_QUESTION_ID": true,
+            "BLUETHINK_REPORTABUSE_ANSWER_ID_BLUETHINK_ANSWER_ANSWER_ID": true
+        }
+    }
+}

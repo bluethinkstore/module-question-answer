@@ -1,0 +1,229 @@
+<div class="questionanswertab">
+<?php
+/**
+ * Copyright © BluethinkInc All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Framework\Escaper $escaper */
+/** @var \Bluethinkinc\QuestionAnswer\Block\Index\Index $block */
+$customer=$block->getCustomer();
+$Customername=$customer['name'];
+$email=$customer['email'];
+$checkLoggedInUser = $block->isLoggedInCustomer();
+if ($block->moduleQuestionAnswerEnable()):
+    $getAllAnswers = "";
+    $getAllQuestions = $block->getSkuQuestionCollection();
+    if (count($getAllQuestions) !== 0) {
+        foreach ($getAllQuestions as $questionCollection) {
+            if ($questionCollection->getQuestionId()) {
+                $questionId = (int) $questionCollection->getQuestionId();
+                $questions[$questionCollection->getQuestionId()]["question"] = $questionCollection->getQuestion();
+                $questions[$questionCollection->getQuestionId()]["question_id"] = $questionCollection->getQuestionId();
+                $getAllAnswers = $block->getAnswerCollection(
+                    $questionCollection->getQuestionId()
+                );
+                foreach ($getAllAnswers as $answerCollection) {
+                    $questions[$questionCollection->getQuestionId()]["answer"][] = $answerCollection->getAnswerId();
+                }
+            }
+        }
+        ?>
+        <div class="container text-center">
+        <?php
+        foreach ($questions as $keyquestion => $question) {
+            $i = 0;
+            $cnt = 0;
+            $scopeCnt = $block->moduleAnswerConfigure();
+            ?>
+            <div class="questionanswer">
+            <div class="question" id="question">
+                    <?= "Question : ". /* @noEscape */ $question['question'];?>
+            </div>
+            <?php if (isset($question["answer"])) {
+                $cnt = count($question["answer"]);
+                foreach ($question["answer"] as $key => $answer) {
+                    $data=current($block->getAnswerByAnswerId($answer));
+                    $answerdata=$data['answer'];
+                    $anonymous=$data['anonymous'];
+                    $name=$data['name'];
+                    if ($i < $scopeCnt) { ?>
+
+                    <div id="answer_<?= /* @noEscape */ $key?>" class="answer">
+                            <?= "Answer : " . /* @noEscape */ $answerdata ?>
+                            <br><b><?= $block->escapeHtmlAttr("Answer By: "); ?></b>
+                            <?php if ($anonymous=='1') { echo $block->escapeHtmlAttr("anonymous");
+                            } else { ?><?= /* @noEscape */ $name;} ?>
+                    </div>
+                <?php  $i++; } } ?>
+
+            <div class="more-text answers_<?= /* @noEscape */ $keyquestion?>">
+                <?php foreach ($question["answer"] as $key => $answer) {
+                    $data=current($block->getAnswerByAnswerId($answer));
+                    $answerdata=$data['answer'];
+                    $anonymous=$data['anonymous'];
+                    $name=$data['name'];
+                    if ($i < $cnt) { ?>
+                    <div class="more-text_<?= /* @noEscape */ $i; ?>">
+                            <?= "Answer : " . /* @noEscape */ $answerdata ?>
+                             <br><b><?= $block->escapeHtmlAttr("Answer By: "); ?></b>
+                             <?php if ($anonymous=='1') { echo $block->escapeHtmlAttr("anonymous");
+                                    ;
+                             } else { ?><?= /* @noEscape */ $name;} ?>
+                    </div>
+                    <?php  $i++; } } ?>
+            </div>
+        <?php  } ?>
+            <?php if ($cnt > $scopeCnt) { ?>
+            <a class="moreless-button" href="javascript:void(0)" 
+                data-id="<?=/* @noEscape */ $keyquestion ?>" >read more</a>
+        <?php } ?>
+        <br>
+            <?php if ($checkLoggedInUser == 1) { ?>
+        <button type="submit" title="Ask Question?" class="action primary answerbutton">
+            <span>Write Answer</span>
+        </button>
+        <div class="post_answer" style="display: none;">
+               <h3>Post Your Answer</h3>
+                <form action="<?= $escaper->escapeHtmlAttr($block->getAnswerFormAction()) ?>" class="review-form" 
+                method="post" id="review-form" data-role="product-review-form" 
+                data-bind="scope: 'review-form'" novalidate="novalidate">
+                   <input name="form_key" type="hidden" value="e2zVQvNUD6sM5Poh"> 
+                   <div class="field-hidden-data required">
+                      <div class="control">
+                         <input type="hidden" name="type" 
+                         value="<?php if ($checkLoggedInUser==1) {echo '2';
+                                } else {echo '1';} ?>">
+                         <input type="hidden" name="question_id"
+                          value="<?= /* @noEscape */  $question['question_id']; ?>">
+                         <input type="hidden" name="sku" id="sku" class="sku" 
+                         value="
+                         <?= $escaper->escapeHtmlAttr(
+                             $block->getProductSkuByCollection()
+                         ) ?>" 
+                         data-validate="{required:true}" aria-required="true">
+                      </div>
+                      <div class="control">
+                         <input type="hidden" name="status" id="status" class="status" 
+                         value="<?= $escaper->escapeHtmlAttr($block->isLoggedInCustomerStatus()) ?>" 
+                         data-validate="{required:true}" aria-required="true">
+                      </div>
+                      <div class="control">
+                         <input type="hidden" name="storeview" id="storeview" 
+                         value="<?= $escaper->escapeHtmlAttr($block->getStoreId()) ?>" class="storeview" 
+                         data-validate="{required:true}" aria-required="true">
+                      </div>
+                   </div>
+                   <div class="field-name required">
+                      <label for="name" class="label"><span>Your Name</span></label>
+                      <div class="control">
+                         <input type="text" name="name" id="name" value="<?= /* @noEscape */  $Customername; ?>" 
+                         class="name" data-validate="{required:true}" aria-required="true">
+                      </div>
+                   </div>
+                   <br>
+                   <div class="field-email required">
+                      <label for="email" class="label"><span>Email</span></label>
+                      <div class="control">
+                         <input type="text" name="email" id="email" value="<?= /* @noEscape */  $email; ?>" 
+                         class="email" data-validate="{required:true}" aria-required="true">
+                      </div>
+                   </div>
+                   <br>
+                   <div class="field-question required">
+                      <label for="answer" class="label"><span>Answer</span></label>
+                      <div class="control">
+                         <textarea name="answer" id="answer" cols="5" rows="3" 
+                         data-validate="{required:true}" aria-required="true"></textarea>
+                      </div>
+                   </div>
+                   <br>
+                   <div class="actions-toolbar submit-form-actions">
+                      <div class="primary actions-primary">
+                         <button type="submit" class="action submit primary"><span>Submit Answer</span></button>
+                      </div>
+                   </div>
+                </form>
+        </div>
+        <?php } ?>
+        <hr>
+        </div>
+        <?php } }
+        $QuestionConfigure=$block->moduleQuestionConfigure();
+        $countquestion=count($getAllQuestions);
+    ?>
+        <input type="hidden" name="QuestionConfigure" 
+        value="<?= /* @noEscape */  $QuestionConfigure; ?>" id="QuestionConfigure">
+        <?php
+        if ($countquestion>$QuestionConfigure) {
+            ?>
+        <a href="" class="load-more">Load More</a>
+        <?php } ?>
+        </div>
+<?php endif; ?>
+<?php if ($checkLoggedInUser == 1) { ?>
+<h3>Question and Answer</h3>
+<form action="<?= $escaper->escapeHtmlAttr($block->getFormAction()) ?>" class="review-form" 
+method="post" id="review-form" data-role="product-review-form" 
+data-bind="scope: 'review-form'" novalidate="novalidate">
+   <input name="form_key" type="hidden" value="e2zVQvNUD6sM5Poh"> 
+   <div class="field-hidden-data required">
+      <div class="control">
+        <input type="hidden" name="type" value="<?php if ($checkLoggedInUser==1) {echo '2';
+                                                } else {echo '1';} ?>">
+         <input type="hidden" name="sku" id="sku" class="sku" 
+         value="<?= $escaper->escapeHtmlAttr($block->getProductSkuByCollection()) ?>" 
+         data-validate="{required:true}" aria-required="true">
+      </div>
+      <div class="control">
+         <input type="hidden" name="type" value="<?php if ($checkLoggedInUser==1) {echo '2';
+                                                 } else {echo '1';} ?>">
+      </div>
+      <div class="control">
+         <input type="hidden" name="status" id="status" class="status" 
+         value="<?= $escaper->escapeHtmlAttr($block->isLoggedInCustomerStatus()) ?>" 
+         data-validate="{required:true}" aria-required="true">
+      </div>
+      <div class="control">
+         <input type="hidden" name="storeview" id="storeview" 
+         value="<?= $escaper->escapeHtmlAttr($block->getStoreId()) ?>" class="storeview" 
+         data-validate="{required:true}" aria-required="true">
+      </div>
+   </div>
+   <div class="field-name required">
+      <label for="name" class="label"><span>Your Name</span></label>
+      <div class="control">
+         <input type="text" name="name" id="name" value="<?= /* @noEscape */  $Customername; ?>" 
+         class="name" data-validate="{required:true}" aria-required="true">
+      </div>
+   </div>
+   <br>
+   <div class="field-email required">
+      <label for="email" class="label"><span>Email</span></label>
+      <div class="control">
+         <input type="text" name="email" id="email" value="<?= /* @noEscape */  $email; ?>" 
+         class="email" data-validate="{required:true}" aria-required="true">
+      </div>
+   </div>
+   <br>
+   <div class="field-question required">
+      <label for="question" class="label"><span>Question</span></label>
+      <div class="control">
+         <textarea name="question" id="question" cols="5" rows="3" 
+         data-validate="{required:true}" aria-required="true"></textarea>
+      </div>
+   </div>
+   <br>
+   <div class="actions-toolbar submit-form-actions">
+      <div class="primary actions-primary">
+         <button type="submit" class="action submit primary"><span>Submit Question</span></button>
+      </div>
+   </div>
+</form>
+<?php } ?>
+<script type="text/x-magento-init">
+{
+ "*":{"Bluethinkinc_QuestionAnswer/js/questionanswer": {}}
+}
+</script>
+</div>     

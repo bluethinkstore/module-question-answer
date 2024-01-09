@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © BluethinkInc All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+     <menu>
+          <add id="Bluethinkinc_QuestionAnswer::questionanswermenu"
+             title="Bluethinkinc"
+             module="Bluethinkinc_QuestionAnswer"
+             sortOrder="20"
+             resource="Bluethinkinc_QuestionAnswer::questionanswermenu" />
+
+          <add id="Bluethinkinc_QuestionAnswer::questionanswer" 
+             title="Bluethinkinc Question Answer" 
+             module="Bluethinkinc_QuestionAnswer" 
+             sortOrder="10" 
+             resource="Bluethinkinc_QuestionAnswer::Question" 
+             parent="Bluethinkinc_QuestionAnswer::questionanswermenu"/>
+
+         <add id="Bluethinkinc_QuestionAnswer::question" 
+             title="Question" 
+             module="Bluethinkinc_QuestionAnswer" 
+             sortOrder="10" 
+             action="adminquestionanswer/question/index" 
+             resource="Bluethinkinc_QuestionAnswer::Question" 
+             parent="Bluethinkinc_QuestionAnswer::questionanswer"/>
+
+        <add id="Bluethinkinc_QuestionAnswer::answer" 
+             title="Answer" 
+             module="Bluethinkinc_QuestionAnswer" 
+             sortOrder="10" 
+             action="adminquestionanswer/answer/index" 
+             resource="Bluethinkinc_QuestionAnswer::Answer" 
+             parent="Bluethinkinc_QuestionAnswer::questionanswer"/>
+
+     </menu>
+</config>
+
+

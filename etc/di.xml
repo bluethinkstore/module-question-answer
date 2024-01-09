@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © BluethinkInc All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="question_grid_data_source" xsi:type="string">Bluethinkinc\QuestionAnswer\Model\ResourceModel\Question\Grid\Collection</item>
+                <item name="answer_grid_data_source" xsi:type="string">Bluethinkinc\QuestionAnswer\Model\ResourceModel\Answer\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Bluethinkinc\QuestionAnswer\Model\ResourceModel\Question\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">bluethink_question</argument>
+            <argument name="resourceModel" xsi:type="string">Bluethinkinc\QuestionAnswer\Model\ResourceModel\Question</argument>
+        </arguments>
+    </virtualType>
+        <virtualType name="Bluethinkinc\QuestionAnswer\Model\ResourceModel\Answer\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">bluethink_answer</argument>
+            <argument name="resourceModel" xsi:type="string">Bluethinkinc\QuestionAnswer\Model\ResourceModel\Answer</argument>
+        </arguments>
+    </virtualType>
+</config>

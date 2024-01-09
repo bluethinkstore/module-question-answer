@@ -1,0 +1,160 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Copyright © BluethinkInc All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+	<argument name="data" xsi:type="array">
+		<item name="js_config" xsi:type="array">
+			<item name="provider" xsi:type="string">answer_grid.answer_grid_data_source</item>
+			<item name="deps" xsi:type="string">answer_grid.answer_grid_data_source</item>
+		</item>
+		<item name="spinner" xsi:type="string">answer_grid</item>
+		<item name="buttons" xsi:type="array">
+			<item name="add" xsi:type="array">
+				<item name="name" xsi:type="string">add</item>
+				<item name="label" translate="true" xsi:type="string">Add Answer</item>
+				<item name="class" xsi:type="string">primary</item>
+                <item name="url" xsi:type="url" path="adminquestionanswer/answer/addanswer"/>
+			</item>
+		</item>
+	</argument>
+	<dataSource name="answer_grid_data_source">
+		<argument name="dataProvider" xsi:type="configurableObject">
+			<argument name="class" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider</argument>
+			<argument name="name" xsi:type="string">answer_grid_data_source</argument>
+			<argument name="primaryFieldName" xsi:type="string">answer_id</argument>
+			<argument name="requestFieldName" xsi:type="string">answer_id</argument>
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+					<item name="update_url" path="mui/index/render" xsi:type="url"/>
+					<item name="storageConfig" xsi:type="array">
+						<item name="indexField" xsi:type="string">answer_id</item>
+					</item>
+				</item>
+			</argument>
+		</argument>
+	</dataSource>
+	<listingToolbar name="listing_top">
+		<argument name="data" xsi:type="array">
+			<item name="config" xsi:type="array">
+				<item name="sticky" xsi:type="boolean">false</item>
+			</item>
+		</argument>
+		<massaction name="listing_massaction">
+		    <argument name="data" xsi:type="array">
+		        <item name="config" xsi:type="array">
+		            <item name="selectProvider" xsi:type="string">answer_grid.answer_grid.answer_grid.ids</item>
+		            <item name="indexField" xsi:type="string">answer_id</item>
+		        </item>
+		    </argument>
+		    <action name="notapproved">
+		        <argument name="data" xsi:type="array">
+		            <item name="config" xsi:type="array">
+		                <item name="type" xsi:type="string">notapproved</item>
+		                <item name="label" xsi:type="string" translate="true">Not Approved Answer(s)</item>
+		                <item name="url" xsi:type="url" path="adminquestionanswer/answer/massNotApproved"/>
+		                <item name="confirm" xsi:type="array">
+		                    <item name="title" xsi:type="string" translate="true">Not Approved Answer(s)</item>
+		                    <item name="message" xsi:type="string" translate="true">Are you sure you wan't to Not-Approved selected Answer(s)?</item>
+		                </item>
+		            </item>
+		        </argument>
+		    </action>
+		    <action name="approved">
+		        <argument name="data" xsi:type="array">
+		            <item name="config" xsi:type="array">
+		                <item name="type" xsi:type="string">approved</item>
+		                <item name="label" xsi:type="string" translate="true">Approved Answer(s)</item>
+		                <item name="url" xsi:type="url" path="adminquestionanswer/answer/massApproved"/>
+		                <item name="confirm" xsi:type="array">
+		                    <item name="title" xsi:type="string" translate="true">Approved Answer(s)</item>
+		                    <item name="message" xsi:type="string" translate="true">Are you sure you wan't to Approved selected Answer(s)?</item>
+		                </item>
+		            </item>
+		        </argument>
+		    </action>
+		    <action name="delete">
+		        <argument name="data" xsi:type="array">
+		            <item name="config" xsi:type="array">
+		                <item name="type" xsi:type="string">delete</item>
+		                <item name="label" xsi:type="string" translate="true">Delete Answer(s)</item>
+		                <item name="url" xsi:type="url" path="adminquestionanswer/answer/massDelete"/>
+		                <item name="confirm" xsi:type="array">
+		                    <item name="title" xsi:type="string" translate="true">Delete Answer(s)</item>
+		                    <item name="message" xsi:type="string" translate="true">Are you sure you wan't to delete selected Answer(s)?</item>
+		                </item>
+		            </item>
+		        </argument>
+		    </action>
+		</massaction>
+        <bookmark name="bookmarks">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="namespace" xsi:type="string">answer_index</item>
+                    </item>
+                </item>
+            </argument>
+        </bookmark>
+		<columnsControls name="columns_controls"/>
+		<filters name="listing_filters"/>
+		<paging name="listing_paging"/>
+	</listingToolbar>
+    <columns name="answer_grid">
+        <!-- <selectionsColumn name="ids">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="indexField" xsi:type="string">answer_id</item>
+				</item>
+			</argument>
+		</selectionsColumn> -->
+        <selectionsColumn name="ids" sortOrder="10">
+            <settings><indexField>answer_id</indexField></settings>
+        </selectionsColumn>
+		<column name="answer_id" sortOrder="20">
+			<settings><label translate="true">Id</label></settings>
+		</column>
+		<column name="question" sortOrder="30" class="Bluethinkinc\QuestionAnswer\Ui\Component\Listing\Column\AnswerQuestionName">
+			<settings><label translate="true">Question</label></settings>
+		</column>
+		<column name="answer" sortOrder="35">
+			<settings><label translate="true">Answer</label></settings>
+		</column>
+		<column name="status" sortOrder="40" class="Bluethinkinc\QuestionAnswer\Ui\Component\Listing\Column\AnswerStatus">
+			<settings><label translate="true">Status</label></settings>
+		</column>
+		<column name="type" sortOrder="60" class="Bluethinkinc\QuestionAnswer\Ui\Component\Listing\Column\AnswerUserType">
+			<settings><label translate="true">Type</label></settings>
+		</column>
+		<column name="sku" sortOrder="65" class="Bluethinkinc\QuestionAnswer\Ui\Component\Listing\Column\AnswerSku">
+			<settings><label translate="true">Sku</label></settings>
+		</column>
+		<column name="product_name" sortOrder="68" class="Bluethinkinc\QuestionAnswer\Ui\Component\Listing\Column\AnswerProductName">
+			<settings><label translate="true">Product Name</label></settings>
+		</column>
+		<column name="name" sortOrder="70">
+			<settings><filter>text</filter><label translate="true">Name</label></settings>
+		</column>
+		<column name="email" sortOrder="80">
+			<settings><filter>text</filter><label translate="true">Email</label></settings>
+		</column>
+		<column name="anonymous" sortOrder="90" class="Bluethinkinc\QuestionAnswer\Ui\Component\Listing\Column\AnswerIsAnonymous">
+			<settings><label translate="true">Is_Anonymous</label></settings>
+		</column>
+		<column name="created_at" sortOrder="95">
+			<settings><label translate="true">Created At</label></settings>
+		</column>
+				<column name="updated_at" sortOrder="100">
+			<settings><label translate="true">Updated At</label></settings>
+		</column>
+      <actionsColumn name="actions" class="Bluethinkinc\QuestionAnswer\Ui\Component\Listing\Column\AnswerActions">
+            <settings>
+                <indexField>answer_id</indexField>
+            </settings>
+        </actionsColumn>
+	</columns>
+</listing>
