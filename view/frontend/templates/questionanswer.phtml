@@ -38,7 +38,7 @@ if ($block->moduleQuestionAnswerEnable()):
             ?>
             <div class="questionanswer">
             <div class="question" id="question">
-                    <?= "Question : ". /* @noEscape */ $question['question'];?>
+            <?= "Question : ". /* @noEscape */ $question['question'];?>
             </div>
             <?php if (isset($question["answer"])) {
                 $cnt = count($question["answer"]);
@@ -58,12 +58,16 @@ if ($block->moduleQuestionAnswerEnable()):
                 <?php  $i++; } } ?>
 
             <div class="more-text answers_<?= /* @noEscape */ $keyquestion?>">
-                <?php foreach ($question["answer"] as $key => $answer) {
-                    $data=current($block->getAnswerByAnswerId($answer));
-                    $answerdata=$data['answer'];
-                    $anonymous=$data['anonymous'];
-                    $name=$data['name'];
-                    if ($i < $cnt) { ?>
+                <?php
+                 $j=$scopeCnt+1;
+                foreach ($question["answer"] as $key => $answer) {
+                    $key1=$key+1;
+                    if ($key1==$j) {
+                        $data=current($block->getAnswerByAnswerId($answer));
+                        $answerdata=$data['answer'];
+                        $anonymous=$data['anonymous'];
+                        $name=$data['name'];
+                        ?>
                     <div class="more-text_<?= /* @noEscape */ $i; ?>">
                             <?= "Answer : " . /* @noEscape */ $answerdata ?>
                              <br><b><?= $block->escapeHtmlAttr("Answer By: "); ?></b>
@@ -71,7 +75,7 @@ if ($block->moduleQuestionAnswerEnable()):
                                     ;
                              } else { ?><?= /* @noEscape */ $name;} ?>
                     </div>
-                    <?php  $i++; } } ?>
+                    <?php  $j++;} } ?>
             </div>
         <?php  } ?>
             <?php if ($cnt > $scopeCnt) { ?>
@@ -85,8 +89,11 @@ if ($block->moduleQuestionAnswerEnable()):
         </button>
         <div class="post_answer" style="display: none;">
                <h3>Post Your Answer</h3>
-                <form action="<?= $escaper->escapeHtmlAttr($block->getAnswerFormAction()) ?>" class="review-form" 
-                method="post" id="review-form" data-role="product-review-form" 
+                <form  id="answer-form<?= /* @noEscape */ $keyquestion; ?>" 
+                data-mage-init='{"validation": {}}' 
+                action="<?= $escaper->escapeHtmlAttr($block->getAnswerFormAction()) ?>"
+                class="review-form" 
+                method="post"  data-role="product-review-form" 
                 data-bind="scope: 'review-form'" novalidate="novalidate">
                    <input name="form_key" type="hidden" value="e2zVQvNUD6sM5Poh"> 
                    <div class="field-hidden-data required">
@@ -96,7 +103,8 @@ if ($block->moduleQuestionAnswerEnable()):
                                 } else {echo '1';} ?>">
                          <input type="hidden" name="question_id"
                           value="<?= /* @noEscape */  $question['question_id']; ?>">
-                         <input type="hidden" name="sku" id="sku" class="sku" 
+                         <input type="hidden" name="sku" id="sku<?= /* @noEscape */
+                            $question['question_id']; ?>" class="sku" 
                          value="
                          <?= $escaper->escapeHtmlAttr(
                              $block->getProductSkuByCollection()
@@ -104,12 +112,14 @@ if ($block->moduleQuestionAnswerEnable()):
                          data-validate="{required:true}" aria-required="true">
                       </div>
                       <div class="control">
-                         <input type="hidden" name="status" id="status" class="status" 
+                         <input type="hidden" name="status" id="status<?= /* @noEscape */
+                            $question['question_id']; ?>" class="status" 
                          value="<?= $escaper->escapeHtmlAttr($block->isLoggedInCustomerStatus()) ?>" 
                          data-validate="{required:true}" aria-required="true">
                       </div>
                       <div class="control">
-                         <input type="hidden" name="storeview" id="storeview" 
+                         <input type="hidden" name="storeview" id="storeview<?=
+                         /* @noEscape */  $question['question_id']; ?>" 
                          value="<?= $escaper->escapeHtmlAttr($block->getStoreId()) ?>" class="storeview" 
                          data-validate="{required:true}" aria-required="true">
                       </div>
@@ -117,7 +127,9 @@ if ($block->moduleQuestionAnswerEnable()):
                    <div class="field-name required">
                       <label for="name" class="label"><span>Your Name</span></label>
                       <div class="control">
-                         <input type="text" name="name" id="name" value="<?= /* @noEscape */  $Customername; ?>" 
+                         <input type="text" name="name" id="name<?=
+                         /* @noEscape */  $question['question_id']; ?>" 
+                         value="<?= /* @noEscape */  $Customername; ?>" 
                          class="name" data-validate="{required:true}" aria-required="true">
                       </div>
                    </div>
@@ -125,7 +137,9 @@ if ($block->moduleQuestionAnswerEnable()):
                    <div class="field-email required">
                       <label for="email" class="label"><span>Email</span></label>
                       <div class="control">
-                         <input type="text" name="email" id="email" value="<?= /* @noEscape */  $email; ?>" 
+                         <input type="text" name="email" id="email<?= /* @noEscape */
+                            $question['question_id']; ?>" value="<?= /* @noEscape */
+                            $email; ?>" 
                          class="email" data-validate="{required:true}" aria-required="true">
                       </div>
                    </div>
@@ -133,7 +147,8 @@ if ($block->moduleQuestionAnswerEnable()):
                    <div class="field-question required">
                       <label for="answer" class="label"><span>Answer</span></label>
                       <div class="control">
-                         <textarea name="answer" id="answer" cols="5" rows="3" 
+                         <textarea name="answer" id="answer<?= /* @noEscape */
+                            $question['question_id']; ?>" cols="5" rows="3" 
                          data-validate="{required:true}" aria-required="true"></textarea>
                       </div>
                    </div>
@@ -145,6 +160,13 @@ if ($block->moduleQuestionAnswerEnable()):
                    </div>
                 </form>
         </div>
+        <script type="text/x-magento-init">
+          {
+              "#answer-form<?= /* @noEscape */ $keyquestion; ?>": {
+                  "validation": {}
+              }
+          }
+         </script>
         <?php } ?>
         <hr>
         </div>
@@ -164,8 +186,8 @@ if ($block->moduleQuestionAnswerEnable()):
 <?php if ($checkLoggedInUser == 1) { ?>
 <h3>Question and Answer</h3>
 <form action="<?= $escaper->escapeHtmlAttr($block->getFormAction()) ?>" class="review-form" 
-method="post" id="review-form" data-role="product-review-form" 
-data-bind="scope: 'review-form'" novalidate="novalidate">
+method="post"  data-role="product-review-form" 
+data-bind="scope: 'review-form'" id="question-form" data-mage-init='{"validation": {}}' novalidate="novalidate">
    <input name="form_key" type="hidden" value="e2zVQvNUD6sM5Poh"> 
    <div class="field-hidden-data required">
       <div class="control">
@@ -225,5 +247,12 @@ data-bind="scope: 'review-form'" novalidate="novalidate">
 {
  "*":{"Bluethinkinc_QuestionAnswer/js/questionanswer": {}}
 }
+</script>
+<script type="text/x-magento-init">
+    {
+        "#question-form": {
+            "validation": {}
+        }
+    }
 </script>
 </div>     

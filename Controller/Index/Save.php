@@ -53,10 +53,18 @@ class Save extends Action
     {
         try {
             $data = (array)$this->getRequest()->getPost();
-            if ($data) {
-                $model = $this->questionFactory->create();
-                $model->setData($data)->save();
-                $this->messageManager->addSuccessMessage(__("Your Question Saved Successfully."));
+            if ($data['name']=='') {
+                $this->messageManager->addErrorMessage(__("Please Enter you Name."));
+            } elseif ($data['email']=='') {
+                $this->messageManager->addErrorMessage(__("Please Enter you Email."));
+            } elseif ($data['question']=='') {
+                 $this->messageManager->addErrorMessage(__("Please Enter you question."));
+            } else {
+                if ($data) {
+                    $model = $this->questionFactory->create();
+                    $model->setData($data)->save();
+                    $this->messageManager->addSuccessMessage(__("Your Question Saved Successfully."));
+                }
             }
         } catch (\Exception $e) {
             $this->messageManager->addErrorMessage($e, __("We can\'t submit your request, Please try again."));
