@@ -1,9 +1,9 @@
 {
-    "name": "bluethinkinc/magento-question-answer",
+    "name": "bluethinkinc/magento-2-question-answer",
     "description": "Question Answer",
     "type": "magento2-module",
     "minimum-stability": "dev",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "license": "proprietary",
     "authors": [
         {
