@@ -105,13 +105,6 @@
 		<paging name="listing_paging"/>
 	</listingToolbar>
     <columns name="answer_grid">
-        <!-- <selectionsColumn name="ids">
-			<argument name="data" xsi:type="array">
-				<item name="config" xsi:type="array">
-					<item name="indexField" xsi:type="string">answer_id</item>
-				</item>
-			</argument>
-		</selectionsColumn> -->
         <selectionsColumn name="ids" sortOrder="10">
             <settings><indexField>answer_id</indexField></settings>
         </selectionsColumn>

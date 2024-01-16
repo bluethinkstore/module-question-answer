@@ -29,6 +29,7 @@ class Question implements ArrayInterface
      */
     public function toOptionArray()
     {
+        $options=[];
         $questionModel = $this->questionFactory->create()->getCollection();
         if ($questionModel->getSize()) {
             foreach ($questionModel as $question) {

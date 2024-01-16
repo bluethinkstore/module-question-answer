@@ -19,7 +19,6 @@
 		<item name="template" xsi:type="string">templates/form/collapsible</item>
 		<item name="buttons" xsi:type="array">
 			<item name="back" xsi:type="string">Bluethinkinc\QuestionAnswer\Block\Adminhtml\Answer\Edit\BackButton</item>
-			<!-- <item name="delete" xsi:type="string">Bluethinkinc\QuestionAnswer\Block\Adminhtml\Answer\Edit\DeleteButton</item>  -->
 			<item name="save" xsi:type="string">Bluethinkinc\QuestionAnswer\Block\Adminhtml\Answer\Edit\SaveButton</item>
 			<item name="save_and_continue" xsi:type="string">Bluethinkinc\QuestionAnswer\Block\Adminhtml\Answer\Edit\SaveAndContinueButton</item>
 		</item>

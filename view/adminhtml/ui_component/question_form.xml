@@ -19,7 +19,6 @@
 		<item name="template" xsi:type="string">templates/form/collapsible</item>
 		<item name="buttons" xsi:type="array">
 			<item name="back" xsi:type="string">Bluethinkinc\QuestionAnswer\Block\Adminhtml\Question\Edit\BackButton</item>
-			<!-- <item name="delete" xsi:type="string">Bluethinkinc\QuestionAnswer\Block\Adminhtml\Question\Edit\DeleteButton</item> -->
 			<item name="save" xsi:type="string">Bluethinkinc\QuestionAnswer\Block\Adminhtml\Question\Edit\SaveButton</item>
 			<item name="save_and_continue" xsi:type="string">Bluethinkinc\QuestionAnswer\Block\Adminhtml\Question\Edit\SaveAndContinueButton</item>
 		</item>
@@ -66,23 +65,6 @@
                 </item>
             </argument>
         </field>
-        <!-- <field name="status">
-			<argument name="data" xsi:type="array">
-				<item name="options" xsi:type="object">Bluethinkinc\QuestionAnswer\Model\ResourceModel\Question\Collection</item>
-				<item name="config" xsi:type="array">
-					<item name="dataType" xsi:type="string">text</item>
-					<item name="label" translate="true" xsi:type="string">Status</item>
-					<item name="formElement" xsi:type="string">select</item>
-					<item name="source" xsi:type="string">Question</item>
-					<item name="sortOrder" xsi:type="number">40</item>
-					<item name="dataScope" xsi:type="string">status</item>
-					<item name="validation" xsi:type="array">
-						<item name="required-entry" xsi:type="boolean">true</item>
-					</item>
-				</item>
-			</argument>
-		</field> -->
-
 		<field name="status" formElement="select">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -122,23 +104,6 @@
                 </select>
             </formElements>
         </field>
-
-        <!-- <field name="type">
-			<argument name="data" xsi:type="array">
-				<item name="options" xsi:type="object">Bluethinkinc\QuestionAnswer\Model\ResourceModel\Question\Collection</item>
-				<item name="config" xsi:type="array">
-					<item name="dataType" xsi:type="string">text</item>
-					<item name="label" translate="true" xsi:type="string">Type</item>
-					<item name="formElement" xsi:type="string">select</item>
-					<item name="source" xsi:type="string">Question</item>
-					<item name="sortOrder" xsi:type="number">50</item>
-					<item name="dataScope" xsi:type="string">type</item>
-					<item name="validation" xsi:type="array">
-						<item name="required-entry" xsi:type="boolean">true</item>
-					</item>
-				</item>
-			</argument>
-		</field> -->
         <field name="sku">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -159,7 +124,6 @@
                 </item>
             </argument>
         </field>
-
         <field name="name">
 			<argument name="data" xsi:type="array">
 				<item name="config" xsi:type="array">
@@ -192,49 +156,6 @@
 				</item>
 			</argument>
 		</field>
-
-        <!-- <field name="storeview">
-		    <argument name="data" xsi:type="array">
-		        <item name="options" xsi:type="object">Magento\Store\Model\ResourceModel\Store\Collection</item>
-		        <item name="config" xsi:type="array">
-                    <item name="sortOrder" xsi:type="number">50</item>
-		            <item name="dataType" xsi:type="string">text</item>
-		            <item name="label" xsi:type="string" translate="true">Store View</item>
-		            <item name="formElement" xsi:type="string">select</item>
-		            <item name="source" xsi:type="string">popup</item>
-		            <item name="dataScope" xsi:type="string">storeview</item>
-		            <item name="default" xsi:type="string">0,1,2,3,4</item>
-		            <item name="validation" xsi:type="array">
-		                <item name="required-entry" xsi:type="boolean">true</item>
-		            </item>
-		        </item>
-		    </argument>
-		</field> -->
-
-		<!-- <field name="storeview" formElement="multiselect" >
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="source" xsi:type="string">store</item>
-                    <item name="default" xsi:type="number">0</item>
-                </item>
-            </argument>
-            <settings>
-                <validation>
-                    <rule name="required-entry" xsi:type="boolean">true</rule>
-                </validation>
-                <dataType>int</dataType>
-                <label translate="true">Store</label>
-                <dataScope>store_id</dataScope>
-            </settings>
-            <formElements>
-                <multiselect>
-                    <settings>
-                        <options class="Bluethinkinc\QuestionAnswer\Ui\Component\Listing\Column\QuestionStoreviewOptions"/>
-                    </settings>
-                </multiselect>
-            </formElements>
-        </field> -->
-
 		<field name="storeviews" formElement="multiselect" class="Magento\Store\Ui\Component\Form\Field\StoreView">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -258,6 +179,5 @@
                 </multiselect>
             </formElements>
         </field>
-
 	</fieldset>
 </form>
