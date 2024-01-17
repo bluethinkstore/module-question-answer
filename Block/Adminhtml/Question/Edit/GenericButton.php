@@ -6,7 +6,9 @@
 namespace Bluethinkinc\QuestionAnswer\Block\Adminhtml\Question\Edit;
 
 use Magento\Backend\Block\Widget\Context;
+use \AllowDynamicProperties;
 
+#[AllowDynamicProperties]
 abstract class GenericButton
 {
     /**

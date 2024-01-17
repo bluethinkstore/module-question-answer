@@ -26,7 +26,7 @@ class AnswerSave extends Action
     /**
      * @var AnswerFactory
      */
-    protected $questionFactory;
+    protected $answerFactory;
 
     /**
      * @param Context $context
