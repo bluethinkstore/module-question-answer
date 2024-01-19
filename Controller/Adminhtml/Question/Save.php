@@ -123,8 +123,8 @@ class Save extends Action
     /**
      * ProductExistBySku method.
      *
-     * @return getIdBySku
      * @param Poduct $sku
+     * @return $sku
      */
     public function productExistBySku($sku)
     {

@@ -11,13 +11,27 @@
     </head>
    <body>
        <referenceBlock name="product.info.details">
-           <block class="Bluethinkinc\QuestionAnswer\Block\Index\Index" name="more-less-js" template="Bluethinkinc_QuestionAnswer::questionanswer.phtml" group="detailed_info" ifconfig="questionAnswer/general/enable" cacheable="false">
+           <block class="Bluethinkinc\QuestionAnswer\Block\Index\Index" name="catalog.product.list.bluethinkinc.questionanswer" as="bluethinkinc_product_questionanswer" template="Bluethinkinc_QuestionAnswer::questionanswer.phtml" group="detailed_info" ifconfig="questionAnswer/general/enable" cacheable="false">
                <arguments>
-                   <argument translate="true" name="title" xsi:type="string">Question Answer</argument>
+                   <argument name="title" xsi:type="helper" helper="Bluethinkinc\QuestionAnswer\Helper\Data::getTitleConfigure"/> 
                     <argument name="sort_order" xsi:type="string">30</argument>
                </arguments>
            </block>
        </referenceBlock>
+       <referenceContainer name="product.info.details.after.wrapper.main">
+            <block class="Magento\Framework\View\Element\Template"
+                before="product.reviews.wrapper"
+                name="product.bluethinkinc.questionanswer.wrapper"
+                template="Bluethinkinc_QuestionAnswer::bluethinkinc_section_wrapper.phtml">
+                <block class="Bluethinkinc\QuestionAnswer\Block\Index\Index"
+                       name="catalog.product.bluethinkinc.questionanswer.full.width"
+                       as="bluethinkinc_product_questionanswer"
+                       template="Bluethinkinc_QuestionAnswer::questionanswer.phtml"
+                       group="detailed_info" ifconfig="questionAnswer/general/enable"
+                       cacheable="false">
+                </block>
+            </block>
+        </referenceContainer>
    </body>
 </page>
 

@@ -78,4 +78,16 @@ class Data extends AbstractHelper
             return 1;
         }
     }
+    /**
+     * AnswerConfigure Method returning config value
+     *
+     * @return string
+     */
+    public function getTitleConfigure()
+    {
+        return $this->scopeConfig->getValue(
+            'questionAnswer/section_title/section_title_subject',
+            ScopeInterface::SCOPE_STORE
+        );
+    }
 }

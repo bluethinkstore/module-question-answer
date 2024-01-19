@@ -44,9 +44,20 @@
                     <source_model>Bluethinkinc\QuestionAnswer\Model\Config\Source\Answer\AnswerListModel</source_model>
                 </field>
             </group>
-            
+             <group id="section_title" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Section Title Configuration</label>
+                <depends>
+                    <field id="questionAnswer/general/enable">1</field>
+                </depends>
+                <field id="section_title_subject" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <validate>required-entry</validate>
+                    <label>Section Title</label>
+                    <comment>Enter Section title.</comment>
+                </field>
+            </group>
         </section>
     </system>
 </config>
 
 
+ 

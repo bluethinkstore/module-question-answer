@@ -1,0 +1,23 @@
+<?php
+/**
+ * Copyright © bluethinkinc. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+
+/**
+ * Wrapper for product questionanswer to include title
+ *
+ * @var \Magento\Framework\View\Element\Template $block
+ */
+
+$childHtml = $block->getChildHtml();
+
+?>
+<?php if (trim($childHtml) !== ""): ?>
+    <div class="product-full-width-section">
+        <h2 class="product-section-title">
+            <?= $block->escapeHtml($block->getChildBlock('bluethinkinc_product_questionanswer')->getSectionTitle()); ?>
+        </h2>
+        <?= $block->getChildHtml(); ?>
+    </div>
+<?php endif; ?>

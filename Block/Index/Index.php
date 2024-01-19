@@ -41,10 +41,15 @@ class Index extends Template
     protected $storeManager;
 
     /**
+     * @var customerSession
+     */
+    protected $_customerSession;
+
+    /**
      * @param StoreManagerInterface $storeManager
      * @param QuestionCollectionFactory $questionCollectionFactory
      * @param AnswerCollectionFactory $answerCollectionFactory
-     * @param customerSession $customerSession
+     * @param customerSession $_customerSession
      * @param Registry $registry
      * @param Data $helperData
      * @param Context $context
@@ -55,7 +60,7 @@ class Index extends Template
         StoreManagerInterface $storeManager,
         QuestionCollectionFactory $questionCollectionFactory,
         AnswerCollectionFactory $answerCollectionFactory,
-        \Magento\Customer\Model\SessionFactory  $customerSession,
+        \Magento\Customer\Model\SessionFactory  $_customerSession,
         Registry $registry,
         Data $helperData,
         Context $context,
@@ -64,7 +69,7 @@ class Index extends Template
         $this->storeManager  = $storeManager;
         $this->questionCollectionFactory  = $questionCollectionFactory;
         $this->answerCollectionFactory  = $answerCollectionFactory;
-        $this->_customerSession = $customerSession;
+        $this->_customerSession = $_customerSession;
         $this->registry  = $registry;
         $this->helperData = $helperData;
         parent::__construct($context, $data);
@@ -252,6 +257,14 @@ class Index extends Template
      
         $customer = $this->_customerSession->create();
         $data=['name'=>$customer->getCustomer()->getFirstname(),'email'=>$customer->getCustomer()->getEmail()];
+        return $data;
+    }
+    /**
+     * Get Section Title
+     */
+    public function getSectionTitle()
+    {
+        $data=$this->helperData->getTitleConfigure();
         return $data;
     }
 }

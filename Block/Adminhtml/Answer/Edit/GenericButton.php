@@ -12,6 +12,10 @@ use \AllowDynamicProperties;
 abstract class GenericButton
 {
     /**
+     * @var context
+     */
+    protected $context;
+    /**
      * Abstract class GenericButton constructor.
      *
      * @param Context $context
